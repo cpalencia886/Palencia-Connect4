@@ -77,6 +77,84 @@ public class ConsoleDisplay : MyBoard
 // Class: ProjectConnetFour
 // Description: The game flow
 
+        public class ProjectConnectFour
+        {
+    private Board gameBoard; //game board holder
+    private Player playerSwitch; //track current player
+    private Player player1; //storing player 1
+    private Player player2; //storing player 2
+    private MyBoard display; // displaying interface
+        
+
+    public ProjectConnectFour(Player player1, Player player2, MyBoard display)
+    {
+        this.player1 = player1;
+        this.player2 = player2;
+        this.playerSwitch = player1; // start player
+        this.gameBoard = new Board();
+        this.display = display;
+    }
+
+    public void letsStart()
+    {
+        display.DisplayWelcome();
+        gameBoard.resetBoard();
+
+        while (true)
+        {
+            while (!gameBoard.GameOverloop())
+            {
+                display.DisplayBoard(gameBoard, playerSwitch); // display gameboard and player's turn
+                int column = checkColumn();
+
+                //display X and O in the board
+                gameBoard.SelectColumns(column, playerSwitch.Symbol);
+
+                //check for wins
+                if (gameBoard.whoWins())
+                {
+                    display.DisplayWinner(playerSwitch.Symbol);
+                    int choice = display.PromtForRestart();
+                    if (choice == 1)
+                    {
+                        gameBoard.resetBoard();
+                        break;
+                    }
+
+                    else if (choice == 2)
+                    {
+                        return;
+                    }
+                }
+
+                playerSwitch = (playerSwitch == player1) ? player2 : player1;
+            }
+        }
+    }
+
+        //get column number from current player
+        private int checkColumn()
+    {
+        int column;
+        while (true)
+        {
+            display.PromptForColumn(); //display input in concole
+            if (!int.TryParse(Console.ReadLine(), out column) || column < 1 || column > 7 )
+            {
+                Console.WriteLine("Invalid column number. Please enter a number between 1-7.");
+            }
+
+            else
+            {
+                return column;
+            }
+        }
+    }
+
+
+}
+
+
 
 // Class: Player
 // Description: players and symbols
