@@ -114,7 +114,7 @@ public class ConsoleDisplay : MyBoard
                 if (gameBoard.whoWins())
                 {
                     display.DisplayWinner(playerSwitch.Symbol);
-                    int choice = display.PromtForRestart();
+                    int choice = display.PromptForRestart();
                     if (choice == 1)
                     {
                         gameBoard.resetBoard();
@@ -171,6 +171,34 @@ public class Player
 
 // Class: Board
 // Description: My gameboard <3
+
+public class Board
+{
+    private char[,] grid; //array for my board
+
+    public Board()
+    {
+        grid = new char[6, 7]; // 6 row, 7 col
+
+    }
+
+    //method for empty cells
+    
+    public void resetBoard()
+    {
+        for (int row = 0; row < 6; row++)
+        {
+            for (int col = 0; col < 7; col++)
+            {
+                grid[row, col] = ' ';
+            }
+        }
+    }
+
+
+
+
+}
 
 // Class: MainGame
 // Description: Main class 
