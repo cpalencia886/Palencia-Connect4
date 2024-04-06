@@ -159,6 +159,15 @@ public class ConsoleDisplay : MyBoard
 // Class: Player
 // Description: players and symbols
 
+public class Player
+{
+    public char Symbol { get; } // for X and O
+    public Player (char symbol)
+    {
+        Symbol = symbol;
+    }
+}
+
 
 // Class: Board
 // Description: My gameboard <3
