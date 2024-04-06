@@ -43,4 +43,32 @@ public class ConsoleDisplay : MyBoard
         gameBoard.GameBoard();
 
     }
+
+    public void PromptForColumn()
+    {
+        Console.WriteLine("Enter column number (1-7): ");
+    }
+
+    public void DisplayWinner (char symbol)
+    {
+        Console.WriteLine($"Player {symbol} wins! ");
+    }
+
+
+    public int PromptForRestart()
+    {
+        int choice;
+        while (true)
+        {
+            Console.WriteLine("Press 1 for a new game, press 2 to exit.");
+            if (!int.TryParse(Console.ReadLine(), out choice) || (choice != 1 && choice != 2)) { 
+            
+            else
+                {
+                    return choice;
+                }
+            
+            }
+        }
+    }
 }
