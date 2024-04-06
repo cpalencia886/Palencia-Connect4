@@ -63,7 +63,7 @@ public class ConsoleDisplay : MyBoard
             Console.WriteLine("Press 1 for a new game, press 2 to exit.");
             if (!int.TryParse(Console.ReadLine(), out choice) || (choice != 1 && choice != 2))
             {
-                Console.WriteLine("Invalid choice. Please enter 1 or 2 only.")
+                Console.WriteLine("Invalid choice. Please enter 1 or 2 only.");
             }
             else
             {
@@ -73,4 +73,17 @@ public class ConsoleDisplay : MyBoard
             }
         }
     }
-}
+
+// Class: ProjectConnetFour
+// Description: The game flow
+
+
+// Class: Player
+// Description: players and symbols
+
+
+// Class: Board
+// Description: My gameboard <3
+
+// Class: MainGame
+// Description: Main class 
