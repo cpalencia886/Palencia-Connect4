@@ -194,7 +194,7 @@ public class Board
             }
         }
     }
-
+    //method for current board
     public void GameBoard()
     {
         for (int row = 0; row < 6; row++)
@@ -210,8 +210,42 @@ public class Board
 
     }
 
+    // method to show symbols in a specific col
+    public void SelectColumns(int column, char symbol)
+    {
+        for (int row = 5; row >= 0; row--)
+        {
+            if (grid[row, column - 1] == ' ')
+            {
+                grid[row, column - 1] = symbol;
+                break;
+            }
+        }
+    }
 
-    //method for current board
+    //method for game over
+    public bool GaveOverLoop()
+    {
+        return false;
+    }
+
+    // How to win: Horizontal, vertical, diagonal (desc), diagonal asc
+    public bool whoWins()
+    {
+        //Horizontal
+        for (int row = 0; row < 6; row++)
+        {
+            for (int col = 0; col < 4; col++)
+            {
+                if (grid[row, col] != ' ' && grid[row, col] == grid[row, col + 1] && grid[row, col] == grid[row, col + 2] && grid[row, col] == grid[row, col + 3])
+                {
+                    return true;
+                }
+            }
+        }
+    }
+
+    //Vertical
 
 
 }
