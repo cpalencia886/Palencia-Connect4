@@ -195,7 +195,23 @@ public class Board
         }
     }
 
+    public void GameBoard()
+    {
+        for (int row = 0; row < 6; row++)
+        {
+            Console.Write("| ");
+            for (int col = 0; col < 7; col++)
+            {
+                Console.Write(grid[row, col] + " | ");
+            }
+            Console.WriteLine("+---+---+---+---+---+---+---+");
+            Console.WriteLine("  1   2   3   4   5   6   7  ");
+        }
 
+    }
+
+
+    //method for current board
 
 
 }
