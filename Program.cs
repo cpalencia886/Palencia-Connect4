@@ -4,6 +4,7 @@
 // Course: SODV1202:Introduction to Object Oriented Programming-24JANMNTR1 
 
 using System;
+using System.Runtime.Serialization.Formatters;
 
 // Interface: MyBoard 
 // To define methods for game info display
@@ -183,7 +184,7 @@ public class Board
     }
 
     //method for empty cells
-    
+
     public void resetBoard()
     {
         for (int row = 0; row < 6; row++)
@@ -229,7 +230,7 @@ public class Board
         return false;
     }
 
-    // How to win: Horizontal, vertical, diagonal (desc), diagonal asc
+    // How to win: Horizontal, vertical, diagonal (/), diagonal (\)
     public bool whoWins()
     {
         //Horizontal
@@ -243,11 +244,34 @@ public class Board
                 }
             }
         }
+
+
+        //Vertical
+        for (int row = 0; row < 3; row++)
+        {
+            for(int col = 0; col < 7; col++)
+            {
+                if (grid[row, col] != ' ' && grid[row, col] == grid[row + 1, col] && grid[row, col] == grid[row + 2, col] && grid[row, col] == grid[row + 3, col])
+                {
+                    return true;
+                }
+            }
+        }
+
+        //Diagonal left
+        for (int row = 3; row <6; row++)
+        {
+            for (int col = 0; col <4 ; col++)
+            {
+                if (grid[row, col] != ' ' && grid[row, col] == grid[row - 1, col + 1] && grid[row, col] == grid[row - 2, col + 2] && grid[row, col] == grid[row - 3, col + 3])
+                {
+                    return true;
+                }
+            }
+        }
+
+
     }
-
-    //Vertical
-
-
 }
 
 // Class: MainGame
