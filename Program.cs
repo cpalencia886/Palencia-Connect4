@@ -47,7 +47,7 @@ public class ConsoleDisplay : MyBoard
 
     public void PromptForColumn()
     {
-        Console.WriteLine("Enter column number (1-7): ");
+        Console.Write("Enter column number (1-7): ");
     }
 
     public void DisplayWinner (char symbol)
@@ -205,11 +205,12 @@ public class Board
             {
                 Console.Write(grid[row, col] + " | ");
             }
-            Console.WriteLine("+---+---+---+---+---+---+---+");
-            Console.WriteLine("  1   2   3   4   5   6   7  ");
+            Console.WriteLine();
         }
-
+        Console.WriteLine("+---+---+---+---+---+---+---+");
+        Console.WriteLine("  1   2   3   4   5   6   7  ");
     }
+
 
     // method to show symbols in a specific col
     public void SelectColumns(int column, char symbol)
@@ -234,7 +235,7 @@ public class Board
     public bool whoWins()
     {
         //Horizontal
-        for (int row = 0; row < 6; row++)
+        for(int row = 0; row < 6; row++)
         {
             for (int col = 0; col < 4; col++)
             {
@@ -245,11 +246,10 @@ public class Board
             }
         }
 
-
-        //Vertical
+        // Vertical
         for (int row = 0; row < 3; row++)
         {
-            for(int col = 0; col < 7; col++)
+            for (int col = 0; col < 7; col++)
             {
                 if (grid[row, col] != ' ' && grid[row, col] == grid[row + 1, col] && grid[row, col] == grid[row + 2, col] && grid[row, col] == grid[row + 3, col])
                 {
@@ -258,10 +258,10 @@ public class Board
             }
         }
 
-        //Diagonal left
-        for (int row = 3; row <6; row++)
+        // Diagonal right
+        for (int row = 3; row < 6; row++)
         {
-            for (int col = 0; col <4 ; col++)
+            for (int col = 0; col < 4; col++)
             {
                 if (grid[row, col] != ' ' && grid[row, col] == grid[row - 1, col + 1] && grid[row, col] == grid[row - 2, col + 2] && grid[row, col] == grid[row - 3, col + 3])
                 {
@@ -269,14 +269,16 @@ public class Board
                 }
             }
         }
-        //Diagonal right
-        for(int row = 0; row < 6; row++)
+
+
+        // Diagonal Left
+        for (int row = 0; row < 3; row++)
         {
-            for (int col = 0; col <4; col++)
+            for (int col = 0; col < 4; col++)
             {
                 if (grid[row, col] != ' ' && grid[row, col] == grid[row + 1, col + 1] && grid[row, col] == grid[row + 2, col + 2] && grid[row, col] == grid[row + 3, col + 3])
                 {
-                    return true;
+                    return true; // Diagonal win (descending)
                 }
             }
         }
