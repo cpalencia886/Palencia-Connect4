@@ -296,5 +296,6 @@ class MainGame
         Player player2 = new Player('O');
         MyBoard display = new ConsoleDisplay();
         ProjectConnectFour game = new ProjectConnectFour(player1, player2, display);
+        game.letsStart();
     }
 }
