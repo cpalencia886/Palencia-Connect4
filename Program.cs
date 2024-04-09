@@ -103,7 +103,7 @@ public class ConsoleDisplay : MyBoard
 
         while (true)
         {
-            while (!gameBoard.GameOverloop())
+            while (!gameBoard.GameOverLoop())
             {
                 display.DisplayBoard(gameBoard, playerSwitch); // display gameboard and player's turn
                 int column = checkColumn();
@@ -225,7 +225,7 @@ public class Board
     }
 
     //method for game over
-    public bool GaveOverLoop()
+    public bool GameOverLoop()
     {
         return false;
     }
@@ -287,3 +287,14 @@ public class Board
 
 // Class: MainGame
 // Description: Main class 
+class MainGame
+{
+    static void Main(string[] args)
+    {
+
+        Player player1 = new Player('X'); //player 1 symbol
+        Player player2 = new Player('O');
+        MyBoard display = new ConsoleDisplay();
+        ProjectConnectFour game = new ProjectConnectFour(player1, player2, display);
+    }
+}
