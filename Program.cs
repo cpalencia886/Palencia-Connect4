@@ -65,7 +65,7 @@ public class ConsoleDisplay : MyBoard
 
     public void DisplayWinner (char symbol)
     {
-        Console.WriteLine($"Player {symbol} wins! ");
+        Console.WriteLine($"Player {symbol.ToString().Pastel(Color.FromArgb(93, 222, 82))} wins! ");
     }
 
 
@@ -74,10 +74,10 @@ public class ConsoleDisplay : MyBoard
         int choice;
         while (true)
         {
-            Console.WriteLine("Press 1 for a new game, press 2 to exit.");
+            Console.WriteLine("Press 1 for a new game, press 2 to exit.".Pastel(Color.FromArgb(247, 144, 144)));
             if (!int.TryParse(Console.ReadLine(), out choice) || (choice != 1 && choice != 2))
             {
-                Console.WriteLine("Invalid choice. Please enter 1 or 2 only.");
+                Console.WriteLine("Invalid choice. Please enter 1 or 2 only.".Pastel(Color.FromArgb(247, 144, 144)));
             }
             else
             {
@@ -233,16 +233,18 @@ public class Board
     {
         for (int row = 0; row < 6; row++)
         {
-            Console.Write("| ".Pastel(Color.FromArgb(196, 255, 209)));
+            Console.Write("| ");
             for (int col = 0; col < 7; col++)
             {
-                Console.Write(grid[row, col] + " | ".Pastel(Color.FromArgb(196, 255, 209)));
+                char symbol = grid[row, col];
+                Color color = (symbol == 'X') ? Color.FromArgb(119, 205, 249) : Color.FromArgb(233, 249, 119); // Blue for X, Red for O
+                Console.Write(symbol.ToString().Pastel(color) + " | ".Pastel(Color.FromArgb(255, 255, 255)));
             }
             Console.WriteLine();
         }
         Console.WriteLine("+---+---+---+---+---+---+---+");
         Console.WriteLine("  1   2   3   4   5   6   7  ".Pastel(Color.FromArgb(123, 153, 253)));
-    }
+}
 
 
     // method to show symbols in a specific col
