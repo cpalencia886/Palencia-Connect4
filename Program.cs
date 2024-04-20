@@ -3,8 +3,17 @@
 // Coded by Corazon Marie Palencia
 // Course: SODV1202:Introduction to Object Oriented Programming-24JANMNTR1 
 
+// Code logic, color and other references: 
+//https://www.ifnamemain.com/posts/2014/Oct/09/csharp_connect4/
+//https://www.geeksforgeeks.org/console-clear-method-in-c-sharp/
+//https://www.nuget.org/packages/Pastel#readme-body-tab
+
+
 using System;
 using System.Runtime.Serialization.Formatters;
+using System.Drawing;
+using Console = Colorful.Console;
+using Pastel;
 
 // Interface: MyBoard 
 // To define methods for game info display
@@ -23,17 +32,21 @@ public interface MyBoard
 // Class: ConsoleDisplay
 // Description: Console display of MyBoard interface
 
+
 public class ConsoleDisplay : MyBoard
-{
+{//
     public void DisplayWelcome()
     {
-        Console.WriteLine("Welcome to Cor's Connect Four Game!");
+                                                               //title with backgroung
+        Console.WriteLine("Welcome to Cor's Connect Four Game!".Pastel(Color.Black).PastelBg(Color.FromArgb(123, 153, 253))); 
     }
 
 
     public void DisplayPlayerTurn(char symbol)
     {
-        Console.WriteLine($"It's {symbol}'s turn");
+        Console.Write("It's ");
+        Console.Write($"{symbol}'s".Pastel(Color.FromArgb(123, 153, 253)));
+        Console.WriteLine(" turn");
     }
 
     public void DisplayBoard(Board gameBoard, Player playerSwitch)
@@ -108,10 +121,26 @@ public class ConsoleDisplay : MyBoard
                 display.DisplayBoard(gameBoard, playerSwitch); // display gameboard and player's turn
                 int column = checkColumn();
 
-                //display X and O in the board
+                // Place the player's piece in the selected column
                 gameBoard.SelectColumns(column, playerSwitch.Symbol);
 
-                //check for wins
+                // Check if the board is full
+                if (gameBoard.BoardFull())
+                {
+                    Console.WriteLine("Board is full. It's a draw!".Pastel(Color.FromArgb(247, 144, 144)));
+                    int choice = display.PromptForRestart();
+                    if (choice == 1)
+                    {
+                        gameBoard.resetBoard();
+                        break;
+                    }
+                    else if (choice == 2)
+                    {
+                        return;
+                    }
+                }
+
+                // Check for wins
                 if (gameBoard.whoWins())
                 {
                     display.DisplayWinner(playerSwitch.Symbol);
@@ -121,7 +150,6 @@ public class ConsoleDisplay : MyBoard
                         gameBoard.resetBoard();
                         break;
                     }
-
                     else if (choice == 2)
                     {
                         return;
@@ -133,8 +161,8 @@ public class ConsoleDisplay : MyBoard
         }
     }
 
-        //get column number from current player
-        private int checkColumn()
+    //get column number from current player
+    private int checkColumn()
     {
         int column;
         while (true)
@@ -142,7 +170,12 @@ public class ConsoleDisplay : MyBoard
             display.PromptForColumn(); //display input in concole
             if (!int.TryParse(Console.ReadLine(), out column) || column < 1 || column > 7 )
             {
-                Console.WriteLine("Invalid column number. Please enter a number between 1-7.");
+                Console.WriteLine("Invalid column number. Please enter a number between 1-7.".Pastel(Color.FromArgb(247, 144, 144)));
+            }
+
+            else if (gameBoard.ColumnFull(column))
+            {
+                Console.WriteLine("Column is full. Please choose another column.".Pastel(Color.FromArgb(247, 144, 144)));
             }
 
             else
@@ -200,15 +233,15 @@ public class Board
     {
         for (int row = 0; row < 6; row++)
         {
-            Console.Write("| ");
+            Console.Write("| ".Pastel(Color.FromArgb(196, 255, 209)));
             for (int col = 0; col < 7; col++)
             {
-                Console.Write(grid[row, col] + " | ");
+                Console.Write(grid[row, col] + " | ".Pastel(Color.FromArgb(196, 255, 209)));
             }
             Console.WriteLine();
         }
         Console.WriteLine("+---+---+---+---+---+---+---+");
-        Console.WriteLine("  1   2   3   4   5   6   7  ");
+        Console.WriteLine("  1   2   3   4   5   6   7  ".Pastel(Color.FromArgb(123, 153, 253)));
     }
 
 
@@ -223,6 +256,24 @@ public class Board
                 break;
             }
         }
+    }
+
+
+    public bool BoardFull()
+    {
+        for (int col = 0; col < 7; col++)
+        {
+            if (grid[0, col] == ' ')
+            {
+                return false; // If any cell in the top row of a column is empty, the board is not full
+            }
+        }
+        return true; // All cells in the top row of every column are occupied, so the board is full
+    }
+
+    public bool ColumnFull(int column)
+    {
+        return grid[0, column - 1] != ' '; 
     }
 
     //method for game over
@@ -287,9 +338,9 @@ public class Board
     }
 }
 
-// Class: MainGame
+// Class: Main Game
 // Description: Main class 
-class MainGame
+class Program
 {
     static void Main(string[] args)
     {
